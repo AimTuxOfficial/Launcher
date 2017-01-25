@@ -1,6 +1,8 @@
 #pragma once
 
 #include <gtkmm.h>
+#include "button.h"
+#include "link.h"
 
 class MainWindow : public Gtk::Window
 {
@@ -15,12 +17,12 @@ protected:
 	void reload();
 
 	Gtk::Image logo;
-	Gtk::Button btnInstall;
-	Gtk::Button btnLoad;
-	Gtk::Button btnUnload;
-	Gtk::Button btnReload;
-	Gtk::LinkButton linkAimTux;
-	Gtk::LinkButton linkAimTuxLauncher;
+	Button btnInstall;
+	Button btnLoad;
+	Button btnUnload;
+	Button btnReload;
+	Link lnkAimtux;
+	Link lnkAimtuxLauncher;
 	Gtk::VBox box;
 	Gtk::HBox links;
 };
