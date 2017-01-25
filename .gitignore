@@ -9,6 +9,7 @@ CMakeCache.txt
 CMakeFiles/
 Makefile
 cmake_install.cmake
+*.cbp
 
 # Precompiled Headers
 *.gch
@@ -33,3 +34,4 @@ cmake_install.cmake
 *.exe
 *.out
 *.app
+
