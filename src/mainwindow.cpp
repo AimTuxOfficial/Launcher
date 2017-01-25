@@ -2,28 +2,33 @@
 
 MainWindow::MainWindow()
 {
-	this->set_title("AimTux Launcher");
-	this->property_resizable() = false;
-	this->set_default_size(400, 500);
+	set_title("AimTux Launcher");
+	property_resizable() = false;
+	set_border_width(10);
+
+	box.set_spacing(10);
+	add(box);
 
 	logo.set("assets/logo.png");
-	grid.attach(logo, 0, 0, 40, 18);
+	box.pack_start(logo);
+	logo.show();
 
 	btnLoad.add_label("Load");
 	btnLoad.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::load));
-	grid.attach(btnLoad, 1, 20, 38, 2);
+	box.pack_start(btnLoad);
+	btnLoad.show();
 
 	btnUnload.add_label("Unload");
 	btnUnload.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::unload));
-	grid.attach(btnUnload, 1, 26, 38, 2);
+	box.pack_start(btnUnload);
+	btnUnload.show();
 
 	btnReload.add_label("Reload");
 	btnReload.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::reload));
-	grid.attach(btnReload, 1, 32, 38, 2);
+	box.pack_start(btnReload);
+	btnReload.show();
 
-	grid.show_all();
-
-	add(grid);
+	box.show();
 }
 
 MainWindow::~MainWindow()

@@ -17,5 +17,5 @@ protected:
 	Gtk::Button btnLoad;
 	Gtk::Button btnUnload;
 	Gtk::Button btnReload;
-	Gtk::Grid grid;
+	Gtk::VBox box;
 };
