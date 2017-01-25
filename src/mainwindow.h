@@ -17,5 +17,8 @@ protected:
 	Gtk::Button btnLoad;
 	Gtk::Button btnUnload;
 	Gtk::Button btnReload;
+	Gtk::LinkButton linkAimTux;
+	Gtk::LinkButton linkAimTuxLauncher;
 	Gtk::VBox box;
+	Gtk::HBox links;
 };
