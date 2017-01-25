@@ -1,13 +1,18 @@
 #include "install.h"
 
-enum
+struct PackageManager
 {
-	UNKNOWN = 0,
-	APT_GET,
-	PACMAN,
-	DNF,
-	YUM,
-	EMERGE,
+	const char* name;
+	const char* install;
+	std::vector<std::string> packagesNeeded;
+};
+
+std::vector<PackageManager> managers = {
+		{ "apt-get", "install", { "cmake", "g++", "gdb", "git", "libsdl2-dev", "zlib1g-dev" } },
+		{ "pacman",  "-S",      { "base-devel", "cmake", "gdb", "git", "sdl2" } },
+		{ "dnf",     "install", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
+		{ "yum",     "install", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
+		{ "emerge",  "",        { "cmake", "cmake", "dev-vcs/git", "gdb", "libsdl2 mesa" } },
 };
 
 bool exists(const char* file)
@@ -16,46 +21,40 @@ bool exists(const char* file)
 	return f.good();
 }
 
-int getPackageManager()
+PackageManager getPackageManager()
 {
-	std::vector<std::pair<const char*, int>> managers = {
-			{ "apt-get", APT_GET },
-			{ "pacman", PACMAN },
-			{ "dnf", DNF },
-			{ "yum", YUM },
-			{ "emerge", EMERGE },
-	};
-
 	for (auto& it : managers)
 	{
 		char* path;
-		asprintf(&path, "/usr/bin/%s", it.first);
+		asprintf(&path, "/usr/bin/%s", it.name);
 		if (exists(path))
-			return it.second;
+			return it;
 	}
 
-	return UNKNOWN;
+	return managers[0]; // idk
+}
+
+bool checkDependencies()
+{
+	for (auto& it : getPackageManager().packagesNeeded)
+	{
+		// check if it's installed
+	}
+}
+
+std::string join(std::vector<std::string> vec)
+{
+	std::stringstream joined;
+	std::copy(vec.begin(), vec.end(), std::ostream_iterator<std::string>(joined, " "));
+	return joined.str();
 }
 
 void Install::installDependencies()
 {
 	printf("Installing dependencies\n");
-	switch (getPackageManager())
-	{
-		case APT_GET:
-			system("sudo apt-get install cmake g++ gdb git libsdl2-dev zlib1g-dev"); // Debian
-			break;
-		case PACMAN:
-			system("sudo pacman -S base-devel cmake gdb git sdl2"); // Arch
-			break;
-		case DNF:
-			system("sudo dnf install cmake gcc-c++ gdb git libstdc++-static mesa-libGL-devel SDL2-devel zlib-devel"); // Fedora
-			break;
-		case YUM:
-			system("sudo yum install cmake gcc-c++ gdb git libstdc++-static mesa-libGL-devel SDL2-devel zlib-devel"); // Redhat
-			break;
-		case EMERGE:
-			system("sudo emerge cmake dev-vcs/git gdb libsdl2 mesa"); // Gentoo
-			break;
-	}
+	PackageManager manager = getPackageManager();
+
+	char* cmd;
+	asprintf(&cmd, "sudo %s %s %s", manager.name, manager.install, join(manager.packagesNeeded).c_str());
+	system(cmd);
 }
