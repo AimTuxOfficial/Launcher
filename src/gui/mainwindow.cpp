@@ -69,15 +69,15 @@ void MainWindow::install()
 
 void MainWindow::load()
 {
-	system("cd AimTux; ./load; cd ..");
+	system("./AimTux/load");
 }
 
 void MainWindow::unload()
 {
-	system("cd AimTux; ./uload; cd ..");
+	system("./AimTux/uload");
 }
 
 void MainWindow::reload()
 {
-	system("cd AimTux; ./rload; cd ..");
+	system("./AimTux/rload");
 }
