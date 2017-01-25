@@ -4,15 +4,16 @@ struct PackageManager
 {
 	const char* name;
 	const char* install;
+	const char* check;
 	std::vector<std::string> packagesNeeded;
 };
 
 std::vector<PackageManager> managers = {
-		{ "apt-get", "install", { "cmake", "g++", "gdb", "git", "libsdl2-dev", "zlib1g-dev" } },
-		{ "pacman",  "-S",      { "base-devel", "cmake", "gdb", "git", "sdl2" } },
-		{ "dnf",     "install", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
-		{ "yum",     "install", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
-		{ "emerge",  "",        { "cmake", "cmake", "dev-vcs/git", "gdb", "libsdl2 mesa" } },
+		{ "apt-get", "install", "dpkg -l",            { "cmake", "g++", "gdb", "git", "libsdl2-dev", "zlib1g-dev" } },
+		{ "pacman",  "-S",      "pacman -Q",          { "cmake", "gdb", "git", "sdl2" } },
+		{ "dnf",     "install", "dnf list installed", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
+		{ "yum",     "install", "yum list installed", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
+		{ "emerge",  "",        "emerge -p",          { "cmake", "cmake", "dev-vcs/git", "gdb", "libsdl2 mesa" } },
 };
 
 bool exists(const char* file)
@@ -34,12 +35,41 @@ PackageManager getPackageManager()
 	return managers[0]; // idk
 }
 
-bool checkDependencies()
+std::string callCmd(std::string cmd)
 {
-	for (auto& it : getPackageManager().packagesNeeded)
+	std::string data;
+	FILE* stream;
+	char buffer[256];
+	cmd.append(" 2>&1");
+	stream = popen(cmd.c_str(), "r");
+	if (stream)
 	{
-		// check if it's installed
+		while (!feof(stream))
+			if (fgets(buffer, 256, stream) != NULL)
+				data.append(buffer);
+		pclose(stream);
 	}
+	return data;
+}
+
+bool contains(std::string haystack, std::string needle)
+{
+	return haystack.find(needle) != std::string::npos;
+}
+
+bool Install::checkDependencies()
+{
+	PackageManager manager = getPackageManager();
+	for (auto& it : manager.packagesNeeded)
+	{
+		char* cmd;
+		asprintf(&cmd, "%s %s", manager.check, it.c_str());
+		printf("found %s", callCmd(cmd).c_str());
+		if (contains(callCmd(cmd), "error"))
+			return false;
+	}
+
+	return true;
 }
 
 std::string join(std::vector<std::string> vec)

@@ -20,21 +20,26 @@ MainWindow::MainWindow()
 	box.pack_start(logo);
 	logo.show();
 
-	btnInstall.signal_pressed().connect(sigc::ptr_fun(&Install::installDependencies));
-	box.pack_start(btnInstall);
-	btnInstall.show();
+	if (!Install::checkDependencies())
+	{
+		btnInstall.signal_pressed().connect(sigc::ptr_fun(&Install::installDependencies));
+		box.pack_start(btnInstall);
+		btnInstall.show();
+	}
+	else
+	{
+		btnLoad.signal_pressed().connect(sigc::ptr_fun(&Load::load));
+		box.pack_start(btnLoad);
+		btnLoad.show();
 
-	btnLoad.signal_pressed().connect(sigc::ptr_fun(&Load::load));
-	box.pack_start(btnLoad);
-	btnLoad.show();
+		btnUnload.signal_pressed().connect(sigc::ptr_fun(&Load::unload));
+		box.pack_start(btnUnload);
+		btnUnload.show();
 
-	btnUnload.signal_pressed().connect(sigc::ptr_fun(&Load::unload));
-	box.pack_start(btnUnload);
-	btnUnload.show();
-
-	btnReload.signal_pressed().connect(sigc::ptr_fun(&Load::reload));
-	box.pack_start(btnReload);
-	btnReload.show();
+		btnReload.signal_pressed().connect(sigc::ptr_fun(&Load::reload));
+		box.pack_start(btnReload);
+		btnReload.show();
+	}
 
 	links.set_spacing(10);
 	links.set_homogeneous(true); // makes all items the same size

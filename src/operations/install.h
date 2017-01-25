@@ -10,6 +10,7 @@
 
 namespace Install
 {
+	bool checkDependencies();
 	void installDependencies();
 	void compile();
 
