@@ -13,6 +13,11 @@ MainWindow::MainWindow()
 	box.pack_start(logo);
 	logo.show();
 
+	btnInstall.add_label("Install");
+	btnInstall.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::install));
+	box.pack_start(btnInstall);
+	btnInstall.show();
+
 	btnLoad.add_label("Load");
 	btnLoad.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::load));
 	btnLoad.set_can_focus(false);
@@ -59,17 +64,28 @@ MainWindow::~MainWindow()
 
 }
 
+void MainWindow::install()
+{
+	system("sudo apt-get install cmake g++ gdb git libsdl2-dev zlib1g-dev"); // Debian
+	system("sudo pacman -S base-devel cmake gdb git sdl2"); // Arch
+	system("sudo dnf install cmake gcc-c++ gdb git libstdc++-static mesa-libGL-devel SDL2-devel zlib-devel"); // Fedora
+	system("sudo yum install cmake gcc-c++ gdb git libstdc++-static mesa-libGL-devel SDL2-devel zlib-devel"); // Redhat
+	system("sudo emerge cmake dev-vcs/git gdb libsdl2 mesa"); // Gentoo
+	system("git clone https://github.com/McSwaggens/AimTux; cd AimTux; cmake .; make -j 4; cd ..");
+	printf("Done installing.\n");
+}
+
 void MainWindow::load()
 {
-	printf("load\n");
+	system("cd AimTux; ./load; cd ..");
 }
 
 void MainWindow::unload()
 {
-	printf("unload\n");
+	system("cd AimTux; ./uload; cd ..");
 }
 
 void MainWindow::reload()
 {
-	printf("reload\n");
+	system("cd AimTux; ./rload; cd ..");
 }

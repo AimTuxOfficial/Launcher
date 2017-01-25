@@ -9,11 +9,13 @@ public:
 	virtual ~MainWindow();
 
 protected:
+	void install();
 	void load();
 	void unload();
 	void reload();
 
 	Gtk::Image logo;
+	Gtk::Button btnInstall;
 	Gtk::Button btnLoad;
 	Gtk::Button btnUnload;
 	Gtk::Button btnReload;
