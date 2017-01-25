@@ -20,19 +20,19 @@ MainWindow::MainWindow()
 	box.pack_start(logo);
 	logo.show();
 
-	btnInstall.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::install));
+	btnInstall.signal_pressed().connect(sigc::ptr_fun(&Install::installDependencies));
 	box.pack_start(btnInstall);
 	btnInstall.show();
 
-	btnLoad.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::load));
+	btnLoad.signal_pressed().connect(sigc::ptr_fun(&Load::load));
 	box.pack_start(btnLoad);
 	btnLoad.show();
 
-	btnUnload.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::unload));
+	btnUnload.signal_pressed().connect(sigc::ptr_fun(&Load::unload));
 	box.pack_start(btnUnload);
 	btnUnload.show();
 
-	btnReload.signal_pressed().connect(sigc::mem_fun(*this, &MainWindow::reload));
+	btnReload.signal_pressed().connect(sigc::ptr_fun(&Load::reload));
 	box.pack_start(btnReload);
 	btnReload.show();
 
@@ -54,30 +54,4 @@ MainWindow::MainWindow()
 MainWindow::~MainWindow()
 {
 
-}
-
-void MainWindow::install()
-{
-	system("sudo apt-get install cmake g++ gdb git libsdl2-dev zlib1g-dev"); // Debian
-	system("sudo pacman -S base-devel cmake gdb git sdl2"); // Arch
-	system("sudo dnf install cmake gcc-c++ gdb git libstdc++-static mesa-libGL-devel SDL2-devel zlib-devel"); // Fedora
-	system("sudo yum install cmake gcc-c++ gdb git libstdc++-static mesa-libGL-devel SDL2-devel zlib-devel"); // Redhat
-	system("sudo emerge cmake dev-vcs/git gdb libsdl2 mesa"); // Gentoo
-	system("git clone https://github.com/McSwaggens/AimTux; cd AimTux; cmake .; make -j 4; cd ..");
-	printf("Done installing.\n");
-}
-
-void MainWindow::load()
-{
-	system("./AimTux/load");
-}
-
-void MainWindow::unload()
-{
-	system("./AimTux/uload");
-}
-
-void MainWindow::reload()
-{
-	system("./AimTux/rload");
 }
