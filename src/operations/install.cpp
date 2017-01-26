@@ -12,7 +12,7 @@ std::vector<Install::PackageManager> managers = {
 
 std::string callCmd(std::string cmd)
 {
-	printf("Calling %s\n", cmd.c_str());
+	Logging::log(Logging::DEBUG, "Calling %s", cmd.c_str());
 	std::string data;
 	FILE* stream;
 	char buffer[256];
@@ -53,7 +53,7 @@ Install::PackageManager Install::getPackageManager()
 		asprintf(&path, "/usr/bin/%s", it.name);
 		if (exists(path))
 		{
-			printf("%s package manager found\n", it.name);
+			Logging::log(Logging::DEBUG, "%s package manager found", it.name);
 			return it;
 		}
 	}
@@ -63,7 +63,7 @@ Install::PackageManager Install::getPackageManager()
 
 bool Install::checkDependencies()
 {
-	printf("Checking dependencies\n");
+	Logging::log(Logging::DEBUG, "Checking dependencies");
 	for (auto& it : Install::manager.packagesNeeded)
 	{
 		char* cmd;
@@ -72,20 +72,20 @@ bool Install::checkDependencies()
 		std::string output = callCmd(cmd);
 		if (contains(output, "error"))
 		{
-			printf("%s is missing\n", pkg);
-			printf("Missing dependencies found\n");
+			Logging::log(Logging::WARNING, "%s is missing", pkg);
+			Logging::log(Logging::WARNING, "Missing dependencies found");
 			return false;
 		}
-		printf("%s found\n", pkg);
+		Logging::log(Logging::DEBUG, "%s found", pkg);
 	}
 
-	printf("All dependencies found\n");
+	Logging::log(Logging::DEBUG, "All dependencies found");
 	return true;
 }
 
 void Install::installDependencies()
 {
-	printf("Installing dependencies\n");
+	Logging::log(Logging::DEBUG, "Installing dependencies");
 
 	char* cmd;
 	asprintf(&cmd, "sudo %s %s %s", Install::manager.name, Install::manager.install, join(Install::manager.packagesNeeded).c_str());
