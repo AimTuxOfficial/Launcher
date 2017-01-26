@@ -22,5 +22,6 @@ void Logging::log(int lvl, const char* msg, ...)
 			color = COLOR_RED;
 			break;
 	}
+	system("clear");
 	printf("%s%s%s\n", color, formatted, COLOR_DEFAULT);
 }
