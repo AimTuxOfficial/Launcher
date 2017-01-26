@@ -6,8 +6,8 @@
 
 namespace Load
 {
-	void printColor(const char*, const char*);
-	void load();
-	void unload();
-	void reload();
+	void PrintColor(const char*, const char*);
+	void Load();
+	void Unload();
+	void Reload();
 }

@@ -6,8 +6,8 @@ MainWindow::MainWindow()
 		btnLoad("Load"),
 		btnUnload("Unload"),
 		btnReload("Reload"),
-		lnkAimtux("AimTux on Github", "https://github.com/mcswaggens/aimtux"),
-		lnkAimtuxLauncher("AimTux Launcher on Github", "https://github.com/mcswaggens/aimtuxlauncher")
+		lnkAimtux("AimTux on Github", "https://github.com/McSwaggens/AimTux"),
+		lnkAimtuxLauncher("AimTux Launcher on Github", "https://github.com/McSwaggens/AimTuxLauncher")
 {
 	set_title("AimTux Launcher");
 	//property_resizable() = false; -- do we need this?
@@ -22,15 +22,15 @@ MainWindow::MainWindow()
 
 	if (Install::CheckDependencies())
 	{
-		btnLoad.signal_pressed().connect(sigc::ptr_fun(&Load::load));
+		btnLoad.signal_pressed().connect(sigc::ptr_fun(&Load::Load));
 		box.pack_start(btnLoad);
 		btnLoad.show();
 
-		btnUnload.signal_pressed().connect(sigc::ptr_fun(&Load::unload));
+		btnUnload.signal_pressed().connect(sigc::ptr_fun(&Load::Unload));
 		box.pack_start(btnUnload);
 		btnUnload.show();
 
-		btnReload.signal_pressed().connect(sigc::ptr_fun(&Load::reload));
+		btnReload.signal_pressed().connect(sigc::ptr_fun(&Load::Reload));
 		box.pack_start(btnReload);
 		btnReload.show();
 	}

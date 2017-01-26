@@ -2,7 +2,7 @@
 #include "gui/mainwindow.h"
 #include "operations/install.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	Install::manager = Install::GetPackageManager();
 

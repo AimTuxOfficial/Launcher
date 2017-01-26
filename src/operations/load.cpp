@@ -1,18 +1,18 @@
 #include "load.h"
 
-void Load::load()
+void Load::Load()
 {
 	Logger::Log(Logger::DEBUG, "Loading");
 	system("./AimTux/load");
 }
 
-void Load::unload()
+void Load::Unload()
 {
 	Logger::Log(Logger::DEBUG, "Unloading");
 	system("./AimTux/uload");
 }
 
-void Load::reload()
+void Load::Reload()
 {
 	Logger::Log(Logger::DEBUG, "Reloading");
 	system("./AimTux/rload");
