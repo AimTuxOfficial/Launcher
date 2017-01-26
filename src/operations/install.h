@@ -21,14 +21,14 @@ namespace Install
 
 	extern PackageManager manager;
 
-	PackageManager getPackageManager();
-	bool checkDependencies();
-	void installDependencies();
-	void compile();
+	PackageManager GetPackageManager();
+	bool CheckDependencies();
+	void InstallDependencies();
+	void Compile();
 
 	namespace Git
 	{
-		void clone();
-		void pull();
+		void Clone();
+		void Pull();
 	}
 }

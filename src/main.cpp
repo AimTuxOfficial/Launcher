@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-	Install::manager = Install::getPackageManager();
+	Install::manager = Install::GetPackageManager();
 
 	auto app = Gtk::Application::create(argc, argv, "org.gtkmm.examples.base");
 

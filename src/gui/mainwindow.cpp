@@ -20,7 +20,7 @@ MainWindow::MainWindow()
 	box.pack_start(logo);
 	logo.show();
 
-	if (Install::checkDependencies())
+	if (Install::CheckDependencies())
 	{
 		btnLoad.signal_pressed().connect(sigc::ptr_fun(&Load::load));
 		box.pack_start(btnLoad);
@@ -36,7 +36,7 @@ MainWindow::MainWindow()
 	}
 	else
 	{
-		btnInstall.signal_pressed().connect(sigc::ptr_fun(&Install::installDependencies));
+		btnInstall.signal_pressed().connect(sigc::ptr_fun(&Install::InstallDependencies));
 		box.pack_start(btnInstall);
 		btnInstall.show();
 	}

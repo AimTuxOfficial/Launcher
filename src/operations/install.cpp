@@ -10,7 +10,7 @@ std::vector<Install::PackageManager> managers = {
 		{ "emerge",  "",        "emerge -p",          { "cmake", "cmake", "dev-vcs/git", "gdb", "libsdl2 mesa" } },
 };
 
-std::string callCmd(std::string cmd)
+std::string CallCmd(std::string cmd)
 {
 	Logger::Log(Logger::DEBUG, "Calling %s", cmd.c_str());
 	std::string data;
@@ -27,31 +27,31 @@ std::string callCmd(std::string cmd)
 	return data;
 }
 
-bool contains(std::string haystack, std::string needle)
+bool Contains(std::string haystack, std::string needle)
 {
 	return haystack.find(needle) != std::string::npos;
 }
 
-std::string join(std::vector<std::string> vec)
+std::string Join(std::vector<std::string> vec)
 {
 	std::stringstream joined;
 	std::copy(vec.begin(), vec.end(), std::ostream_iterator<std::string>(joined, " "));
 	return joined.str();
 }
 
-bool exists(const char* file)
+bool Exists(const char* file)
 {
 	std::ifstream f(file);
 	return f.good();
 }
 
-Install::PackageManager Install::getPackageManager()
+Install::PackageManager Install::GetPackageManager()
 {
 	for (auto& it : managers)
 	{
 		char* path;
 		asprintf(&path, "/usr/bin/%s", it.name);
-		if (exists(path))
+		if (Exists(path))
 		{
 			Logger::Log(Logger::DEBUG, "%s package manager found", it.name);
 			return it;
@@ -61,7 +61,7 @@ Install::PackageManager Install::getPackageManager()
 	return managers[0]; // idk
 }
 
-bool Install::checkDependencies()
+bool Install::CheckDependencies()
 {
 	Logger::Log(Logger::DEBUG, "Checking dependencies");
 	for (auto& it : Install::manager.packagesNeeded)
@@ -69,8 +69,8 @@ bool Install::checkDependencies()
 		char* cmd;
 		const char* pkg = it.c_str();
 		asprintf(&cmd, "%s %s", Install::manager.check, pkg);
-		std::string output = callCmd(cmd);
-		if (contains(output, "error"))
+		std::string output = CallCmd(cmd);
+		if (Contains(output, "error"))
 		{
 			Logger::Log(Logger::WARNING, "%s is missing", pkg);
 			Logger::Log(Logger::WARNING, "Missing dependencies found");
@@ -83,11 +83,11 @@ bool Install::checkDependencies()
 	return true;
 }
 
-void Install::installDependencies()
+void Install::InstallDependencies()
 {
 	Logger::Log(Logger::DEBUG, "Installing dependencies");
 
 	char* cmd;
-	asprintf(&cmd, "sudo %s %s %s", Install::manager.name, Install::manager.install, join(Install::manager.packagesNeeded).c_str());
+	asprintf(&cmd, "sudo %s %s %s", Install::manager.name, Install::manager.install, Join(Install::manager.packagesNeeded).c_str());
 	system(cmd);
 }
