@@ -7,7 +7,7 @@
 #include <string>
 #include <sstream>
 #include <iterator>
-#include "../logging.h"
+#include "../logger.h"
 
 namespace Install
 {

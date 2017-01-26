@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../logging.h"
+#include "../logger.h"
 
 namespace Load
 {

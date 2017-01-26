@@ -1,6 +1,6 @@
-#include "logging.h"
+#include "logger.h"
 
-void Logging::log(int lvl, const char* msg, ...)
+void Logger::Log(int lvl, const char* msg, ...)
 {
 	va_list args;
 	va_start(args, msg);
@@ -12,13 +12,13 @@ void Logging::log(int lvl, const char* msg, ...)
 	switch (lvl)
 	{
 		default:
-		case Logging::DEBUG:
+		case Logger::DEBUG:
 			color = COLOR_GREEN;
 			break;
-		case Logging::WARNING:
+		case Logger::WARNING:
 			color = COLOR_YELLOW;
 			break;
-		case Logging::ERROR:
+		case Logger::ERROR:
 			color = COLOR_RED;
 			break;
 	}

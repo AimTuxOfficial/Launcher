@@ -9,7 +9,7 @@
 #define COLOR_YELLOW "\e[0;33m"
 #define COLOR_RED "\e[0;31m"
 
-namespace Logging
+namespace Logger
 {
 	enum
 	{
@@ -18,5 +18,5 @@ namespace Logging
 		ERROR,
 	};
 
-	void log(int lvl, const char* msg, ...);
+	void Log(int lvl, const char* msg, ...);
 }
