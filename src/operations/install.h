@@ -10,6 +10,17 @@
 
 namespace Install
 {
+	struct PackageManager
+	{
+		const char* name;
+		const char* install;
+		const char* check;
+		std::vector<std::string> packagesNeeded;
+	};
+
+	extern PackageManager manager;
+
+	PackageManager getPackageManager();
 	bool checkDependencies();
 	void installDependencies();
 	void compile();

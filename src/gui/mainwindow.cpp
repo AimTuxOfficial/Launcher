@@ -20,13 +20,7 @@ MainWindow::MainWindow()
 	box.pack_start(logo);
 	logo.show();
 
-	if (!Install::checkDependencies())
-	{
-		btnInstall.signal_pressed().connect(sigc::ptr_fun(&Install::installDependencies));
-		box.pack_start(btnInstall);
-		btnInstall.show();
-	}
-	else
+	if (Install::checkDependencies())
 	{
 		btnLoad.signal_pressed().connect(sigc::ptr_fun(&Load::load));
 		box.pack_start(btnLoad);
@@ -39,6 +33,12 @@ MainWindow::MainWindow()
 		btnReload.signal_pressed().connect(sigc::ptr_fun(&Load::reload));
 		box.pack_start(btnReload);
 		btnReload.show();
+	}
+	else
+	{
+		btnInstall.signal_pressed().connect(sigc::ptr_fun(&Install::installDependencies));
+		box.pack_start(btnInstall);
+		btnInstall.show();
 	}
 
 	links.set_spacing(10);
