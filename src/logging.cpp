@@ -2,6 +2,12 @@
 
 void Logging::log(int lvl, const char* msg, ...)
 {
+	va_list args;
+	va_start(args, msg);
+	char formatted[256];
+	vsnprintf(formatted, 255, msg, args);
+	va_end(args);
+
 	char* color;
 	switch (lvl)
 	{
@@ -16,5 +22,5 @@ void Logging::log(int lvl, const char* msg, ...)
 			color = COLOR_RED;
 			break;
 	}
-	printf("%s%s%s\n", color, msg, COLOR_DEFAULT);
+	printf("%s%s%s\n", color, formatted, COLOR_DEFAULT);
 }

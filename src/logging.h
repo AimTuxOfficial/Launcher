@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdarg>
 
 #define COLOR_DEFAULT "\e[0m"
 #define COLOR_GREEN "\e[0;32m"
