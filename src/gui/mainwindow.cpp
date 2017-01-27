@@ -6,8 +6,8 @@ MainWindow::MainWindow()
 		btnLoad("Load"),
 		btnUnload("Unload"),
 		btnReload("Reload"),
-		lnkAimtux("AimTux on Github", "https://github.com/McSwaggens/AimTux"),
-		lnkAimtuxLauncher("AimTux Launcher on Github", "https://github.com/McSwaggens/AimTuxLauncher")
+		lnkAimtux("AimTux on Github", "https://github.com/AimTuxOfficial/AimTux"),
+		lnkAimtuxLauncher("AimTux Launcher on Github", "https://github.com/AimTuxOfficial/Launcher")
 {
 	set_title("AimTux Launcher");
 	//property_resizable() = false; -- do we need this?
