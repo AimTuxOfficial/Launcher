@@ -18,5 +18,7 @@ namespace Logger
 		ERROR,
 	};
 
-	void Log(int lvl, const char* msg, ...);
+	void Info(const char* msg, ...);
+	void Warning(const char* msg, ...);
+	void Error(const char* msg, ...);
 }

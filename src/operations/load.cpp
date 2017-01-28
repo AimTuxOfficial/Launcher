@@ -2,18 +2,18 @@
 
 void Load::Load()
 {
-	Logger::Log(Logger::DEBUG, "Loading");
+	Logger::Info("Loading");
 	system("./AimTux/load");
 }
 
 void Load::Unload()
 {
-	Logger::Log(Logger::DEBUG, "Unloading");
+	Logger::Info("Unloading");
 	system("./AimTux/uload");
 }
 
 void Load::Reload()
 {
-	Logger::Log(Logger::DEBUG, "Reloading");
+	Logger::Info("Reloading");
 	system("./AimTux/rload");
 }
