@@ -5,8 +5,8 @@ Install::PackageManager Install::manager = {};
 std::vector<Install::PackageManager> managers = {
 		{ "apt-get", "install", "dpkg -l",            { "cmake", "g++", "gdb", "git", "libsdl2-dev", "zlib1g-dev" } },
 		{ "pacman",  "-S",      "pacman -Q",          { "cmake", "gdb", "git", "sdl2" } },
-		{ "dnf",     "install", "dnf list installed", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
-		{ "yum",     "install", "yum list installed", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
+		{ "dnf",     "install", "rpm -q", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
+		{ "yum",     "install", "rpm -q", { "cmake", "gcc-c++", "gdb", "git", "libstdc++-static", "mesa-libGL-devel", "SDL2-devel", "zlib-devel" } },
 		{ "emerge",  "",        "emerge -p",          { "cmake", "cmake", "dev-vcs/git", "gdb", "libsdl2 mesa" } },
 };
 
