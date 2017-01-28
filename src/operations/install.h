@@ -13,6 +13,7 @@ namespace Install
 {
 	struct PackageManager
 	{
+		int id;
 		const char* name;
 		const char* install;
 		const char* check;
